@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mohamahmoud.controller.Controller">
+    <TableView fx:id="entries" layoutX="62.0" layoutY="119.0" prefHeight="200.0" prefWidth="452.0">
+      <columns>
+          <TableColumn fx:id="dateColumn" prefWidth="75.0" text="Datum"/>
+          <TableColumn fx:id="nameColumn" prefWidth="75.0" text="Modul"/>
+          <TableColumn fx:id="ectsColumn" prefWidth="75.0" text="ECTS"/>
+          <TableColumn fx:id="stateColumn" prefWidth="75.0" text="Icon !!!"/>
+          <TableColumn fx:id="gradeColumn" prefWidth="75.0" text="Note"/>
+          <TableColumn fx:id="scoreColumn" prefWidth="75.0" text="Punktzahl"/>
+      </columns>
+    </TableView>
+    <ComboBox fx:id="semesterSelection" layoutX="225.0" layoutY="55.0" prefWidth="150.0"/>
+</AnchorPane>
