@@ -3,6 +3,9 @@ module examplanner {
     exports com.mohamahmoud.controller;
     exports com.mohamahmoud.model;
 
+    exports com.mohamahmoud.data to com.fasterxml.jackson.databind;
+    opens com.mohamahmoud.data to com.fasterxml.jackson.databind;
+    opens com.mohamahmoud.model to com.fasterxml.jackson.databind;
     opens com.mohamahmoud.controller to javafx.fxml;
 
     requires transitive javafx.graphics;

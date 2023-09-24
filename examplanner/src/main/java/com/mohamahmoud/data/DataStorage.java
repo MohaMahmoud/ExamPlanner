@@ -23,7 +23,7 @@ public class DataStorage {
      */
     public void saveData(SemesterData data, String path) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.writeValue(getJSONFile(path), data);
+        objectMapper.writeValue(new File(path), data);
     }
 
     /**
@@ -33,30 +33,6 @@ public class DataStorage {
      */
     public SemesterData readData(String path) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.readValue(getJSONFile(path), SemesterData.class);
-    }
-
-    /**
-     * Retrieves the JSON File and returns a temporary copy of it.
-     * 
-     * @return The JSON File
-     * @throws IOException If the file was not found
-     */
-    private File getJSONFile(String path) throws IOException {
-        // Retrieve input stream for the json file.
-        InputStream inputStream = getClass().getClassLoader().getResourceAsStream(path);
-        if (inputStream == null) throw new IOException("Could not find File: " + path);
-        // Create a temporary file that is deleted on exit.
-        File temp = File.createTempFile("temp", ".json");
-        temp.deleteOnExit();
-        // Copy the content from the input stream to the temporary file.
-        try {
-            Files.copy(inputStream, temp.toPath());
-        } finally {
-            // Ensure input stream is properly closed.
-            inputStream.close();
-        }
-        // Return the temporary file.
-        return temp;
+        return objectMapper.readValue(new File(path), SemesterData.class);
     }
 }

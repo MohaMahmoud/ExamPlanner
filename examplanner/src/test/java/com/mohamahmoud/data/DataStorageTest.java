@@ -18,7 +18,7 @@ import com.mohamahmoud.model.Semester;
  * @version 1.0
  */
 public class DataStorageTest {
-    private static final String USERDATA_PATH = "json/userdata.json";
+    private static final String USERDATA_PATH = "userdata.json";
     private static final String TEMP_PATH = "json/temp.json";
     private static final String INVALID_PATH = "json/invalid.json";
 
@@ -46,6 +46,7 @@ public class DataStorageTest {
         // Test the reading of the data.
         try {
             SemesterData retrievedData = storage.readData(USERDATA_PATH);
+
             // Assert that the retrieved data matches the original data.
             Assertions.assertEquals(data, retrievedData);
         } catch (IOException exception) {
@@ -70,7 +71,7 @@ public class DataStorageTest {
     }
 
     @Test
-    public void testTempFile()  {
+    public void testTempFile() {
         // Save the data in the storage.
         try {
             storage.saveData(data, USERDATA_PATH);
