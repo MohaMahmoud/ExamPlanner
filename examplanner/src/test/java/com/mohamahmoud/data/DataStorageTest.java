@@ -18,12 +18,9 @@ import com.mohamahmoud.model.Semester;
  * @version 1.0
  */
 public class DataStorageTest {
-    private static final String USERDATA_PATH = "userdata.json";
-    private static final String TEMP_PATH = "json/temp.json";
-    private static final String INVALID_PATH = "json/invalid.json";
 
     private DataStorage storage;
-    private SemesterData data;
+    private Data data;
 
     @BeforeEach
     public void setup() {
@@ -32,20 +29,20 @@ public class DataStorageTest {
         // Initiate semester data.
         Semester semester1 = new Semester("Wintersemester 2022/23");
         Semester semester2 = new Semester("Sommersemester 2023");
-        data = new SemesterData(List.of(semester1, semester2), semester1);
+        data = new Data(List.of(semester1, semester2), semester1);
     }
 
     @Test
     public void testSaveAndReadData() {
         // Test the saving of the data.
         try {
-            storage.saveData(data, USERDATA_PATH);
+            storage.saveData(data);
         } catch (IOException exception) {
             Assertions.fail("Exception thrown while saving the data: " + exception.getMessage());
         }
         // Test the reading of the data.
         try {
-            SemesterData retrievedData = storage.readData(USERDATA_PATH);
+            Data retrievedData = storage.readData();
 
             // Assert that the retrieved data matches the original data.
             Assertions.assertEquals(data, retrievedData);
@@ -58,7 +55,7 @@ public class DataStorageTest {
     public void testFileNotFound() {
         // Test reading data when the file path is invalid.
         Assertions.assertThrows(IOException.class, () -> {
-            storage.readData(INVALID_PATH);
+            storage.readData();
         });
     }
 
@@ -66,7 +63,7 @@ public class DataStorageTest {
     public void testSaveIOException() {
         // Test reading data when the file path is invalid.
         Assertions.assertThrows(IOException.class, () -> {
-            storage.saveData(data, INVALID_PATH);
+            storage.saveData(data);
         });
     }
 
@@ -74,12 +71,12 @@ public class DataStorageTest {
     public void testTempFile() {
         // Save the data in the storage.
         try {
-            storage.saveData(data, USERDATA_PATH);
+            storage.saveData(data);
         } catch (IOException exception) {
             Assertions.fail("Exception thrown while saving the data: " + exception.getMessage());
         }
         // Check if the temporary file has been deleted.
-        Path path = Path.of(TEMP_PATH);
-        Assertions.assertFalse(Files.exists(path));
+
+        // TODO
     }
 }

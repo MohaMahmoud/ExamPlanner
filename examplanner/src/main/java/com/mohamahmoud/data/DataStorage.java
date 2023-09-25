@@ -2,8 +2,6 @@ package com.mohamahmoud.data;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -14,6 +12,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * @version 1.0
  */
 public class DataStorage {
+    private static final String PATH = "userdata.json";
 
     /**
      * Saves the data to the JSON File.
@@ -21,9 +20,9 @@ public class DataStorage {
      * @param data The data to be saved
      * @throws IOException If an error occurs while saving the data
      */
-    public void saveData(SemesterData data, String path) throws IOException {
+    public void saveData(Data data) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.writeValue(new File(path), data);
+        objectMapper.writeValue(new File(PATH), data);
     }
 
     /**
@@ -31,8 +30,8 @@ public class DataStorage {
      * 
      * @throws IOException If an error occurs while reading the data
      */
-    public SemesterData readData(String path) throws IOException {
+    public Data readData() throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.readValue(new File(path), SemesterData.class);
+        return objectMapper.readValue(new File(PATH), Data.class);
     }
 }

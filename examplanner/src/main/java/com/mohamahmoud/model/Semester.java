@@ -45,7 +45,7 @@ public class Semester {
         // Cast the object because we know it's the same type.
         Semester other = (Semester) obj;
         // Comparing the List of semesters and the current semester.
-        return entries.equals(other.entries) && name.equals(other.name);
+        return name.equals(other.name) && entries.equals(other.entries);
     }
 
     @Override

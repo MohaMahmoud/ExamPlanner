@@ -3,8 +3,6 @@ package com.mohamahmoud.data;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 import com.mohamahmoud.model.Semester;
 import com.mohamahmoud.util.Stringify;
@@ -15,7 +13,7 @@ import com.mohamahmoud.util.Stringify;
  * @author Mohammad Mahmoud
  * @version 1.0
  */
-public record SemesterData(List<Semester> semesters, Semester currentSemester) {
+public record Data(List<Semester> semesters, Semester currentSemester) {
 
     @Override
     public List<Semester> semesters() {
@@ -25,10 +23,12 @@ public record SemesterData(List<Semester> semesters, Semester currentSemester) {
     @Override
     public boolean equals(Object obj) {
         // Default return values if it is the same object.
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
+        if (this == obj)
+            return true;
+        if (obj == null || getClass() != obj.getClass())
+            return false;
         // Cast the object because we know it's the same type.
-        SemesterData other = (SemesterData) obj;
+        Data other = (Data) obj;
         // Comparing the List of semesters and the current semester.
         return semesters.equals(other.semesters) && currentSemester.equals(other.currentSemester);
     }
