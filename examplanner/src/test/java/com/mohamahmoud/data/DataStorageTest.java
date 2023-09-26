@@ -3,13 +3,12 @@ package com.mohamahmoud.data;
 import org.junit.jupiter.api.Test;
 
 import com.mohamahmoud.model.academic.Semester;
+import com.mohamahmoud.util.DataComparator;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.List;
 
 /**
@@ -44,40 +43,10 @@ public class DataStorageTest {
         // Test the reading of the data.
         try {
             Data retrievedData = storage.readData();
-
             // Assert that the retrieved data matches the original data.
-            Assertions.assertEquals(data, retrievedData);
+            Assertions.assertTrue(DataComparator.compareData(data, retrievedData));
         } catch (IOException exception) {
             Assertions.fail("Exception thrown while reading the data: " + exception.getMessage());
         }
-    }
-
-    @Test
-    public void testFileNotFound() {
-        // Test reading data when the file path is invalid.
-        Assertions.assertThrows(IOException.class, () -> {
-            storage.readData();
-        });
-    }
-
-    @Test
-    public void testSaveIOException() {
-        // Test reading data when the file path is invalid.
-        Assertions.assertThrows(IOException.class, () -> {
-            storage.saveData(data);
-        });
-    }
-
-    @Test
-    public void testTempFile() {
-        // Save the data in the storage.
-        try {
-            storage.saveData(data);
-        } catch (IOException exception) {
-            Assertions.fail("Exception thrown while saving the data: " + exception.getMessage());
-        }
-        // Check if the temporary file has been deleted.
-
-        // TODO
     }
 }

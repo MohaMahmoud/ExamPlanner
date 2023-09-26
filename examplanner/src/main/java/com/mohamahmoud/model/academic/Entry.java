@@ -2,6 +2,8 @@ package com.mohamahmoud.model.academic;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mohamahmoud.model.grading.Result;
 import com.mohamahmoud.util.Stringify;
 
@@ -25,7 +27,11 @@ public class Entry {
      * @param ects The ects points of the {@link Entry}
      * @param result The result of the {@link Entry}
      */
-    public Entry(LocalDate date, String name, int ects, Result result) {
+    @JsonCreator
+    public Entry(@JsonProperty("date") LocalDate date, 
+                 @JsonProperty("name") String name, 
+                 @JsonProperty("ects") int ects, 
+                 @JsonProperty("result") Result result) {
         this.date = date;
         this.name = name;
         this.ects = ects;

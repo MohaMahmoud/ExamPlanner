@@ -6,7 +6,6 @@ import com.mohamahmoud.model.academic.Semester;
 
 public final class Stringify {
     public static final String BR = System.lineSeparator();
-    private static final String SEPARATOR = " ";
 
     /**
      * Formats the {@link Data} into readable and structured text.
@@ -19,10 +18,10 @@ public final class Stringify {
         StringBuilder builder = new StringBuilder();
         // Show the current semester.
         builder.append("Current Semester:" + BR);
-        builder.append(data.currentSemester().getName() + BR + BR);
+        builder.append(data.getCurrentSemester().getName() + BR + BR);
         // Show the semesters.
         builder.append("Semesters:" + BR);
-        for (Semester semester : data.semesters()) {
+        for (Semester semester : data.getSemesters()) {
             builder.append(semester.getName() + BR);
         }
         // Return the formatted String.
@@ -57,11 +56,15 @@ public final class Stringify {
      * @return The formatted {@link Entry}
      */
     public static String format(Entry entry) {
-        // Initialize the StringBuilder.
+
         StringBuilder builder = new StringBuilder();
-        String format = "Date: %s, Name: %s, ECTS: %d, State: %s, Grade: %s, Score: %s"; // TODO Test that formatting.
-        builder.append(String.format(format, entry.date(), entry.name(), entry.ects(), entry.state(), entry.grade(),
-                entry.score()));
+        String format = "Date: %s, Name: %s, ECTS: %d, Result: %s";
+        builder.append(String.format(
+                format,
+                entry.getDate(),
+                entry.getName(),
+                entry.getEcts(),
+                entry.getResult()));
         return builder.toString();
     }
 }

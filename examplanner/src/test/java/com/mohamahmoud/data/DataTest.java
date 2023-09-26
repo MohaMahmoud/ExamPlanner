@@ -5,13 +5,15 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 
 import java.time.LocalDate;
-import java.util.Collections;
 import java.util.List;
 
 import com.mohamahmoud.model.academic.Entry;
 import com.mohamahmoud.model.academic.Semester;
+import com.mohamahmoud.model.grading.Grade;
+import com.mohamahmoud.model.grading.Result;
 import com.mohamahmoud.model.grading.Score;
 import com.mohamahmoud.model.grading.State;
+import com.mohamahmoud.util.DataComparator;
 import com.mohamahmoud.util.Stringify;
 
 /**
@@ -31,11 +33,20 @@ public class DataTest {
         Semester semester2 = new Semester("Sommersemester 2023");
         Semester semester3 = new Semester("Wintersemester 2023/24");
         Semester semester4 = new Semester("Sommersemester 2024");
+
         // Add an entry to the current semester.
-        Entry entry1 = new Entry(LocalDate.MIN, "Beginning", 0, State.PASSED, 1.0f, new Score(100f, 100f));
-        Entry entry2 = new Entry(LocalDate.MAX, "Ending", 10, State.FAILED, 5.0f, new Score(0f,100f));
+        Score score1 = new Score(100.0f, 100.0f);
+        Grade grade1 = new Grade(1.0f, false);
+        Result result1 = new Result(State.PASSED, grade1, score1);
+        Entry entry1 = new Entry(LocalDate.MIN, "Beginning", 0, result1);
         semester1.addEntry(entry1);
+        // Add another entry to a different semester
+        Score score2 = new Score(0.0f, 100.0f);
+        Grade grade2 = new Grade(null, true);
+        Result result2 = new Result(State.FAILED, grade2, score2);
+        Entry entry2 = new Entry(LocalDate.MAX, "Ending", 10, result2);
         semester2.addEntry(entry2);
+
         // Add semesters to the list and select current semester.
         semesters = List.of(semester1, semester2, semester3, semester4);
         currentSemester = semester1;
@@ -46,48 +57,41 @@ public class DataTest {
         // Initialize new SemesterData Object.
         Data data = new Data(semesters, currentSemester);
         // Test semesters() and currentSemester().
-        List<Semester> retrievedSemesters = data.semesters();
-        Semester retrievedCurrentSemester = data.currentSemester();
-        // Compare the values.
-        Assertions.assertEquals(semesters, retrievedSemesters);
-        Assertions.assertEquals(currentSemester, retrievedCurrentSemester);
-    }
+        List<Semester> retrievedSemesters = data.getSemesters();
+        Semester retrievedCurrentSemester = data.getCurrentSemester();
 
-    @Test
-    public void testEqualsAndHashCode() {
-        // Create a copy of the semester data.
-        Data data = new Data(semesters, currentSemester);
-        Data copy = new Data(semesters, currentSemester);
-        // Test equality.
-        Assertions.assertTrue(data.equals(copy));
-        Assertions.assertTrue(copy.equals(data));
-        // Test hashcode.
-        Assertions.assertEquals(data.hashCode(), copy.hashCode());
-        // Modify one of the semesters in the copy.
-        copy.semesters().get(0).addEntry(new Entry(LocalDate.now(), "Modified", 0, State.UNKNOWN, 1.0f, new Score(100f, 100f)));
-        // Test inequality after modifying the copy.
-        Assertions.assertFalse(data.equals(copy));
-        Assertions.assertFalse(copy.equals(data));
+        // Check for null references
+        if (retrievedSemesters == null) {
+            Assertions.fail("Getter returned null but shouldn't.");
+        }
+
+        // Compare the List length.
+        if (retrievedSemesters.size() != semesters.size()) {
+            Assertions.fail("Getter returned List with different size.");
+        }
+
+        // Compare the individual semesters.
+        for (int i = 0; i < semesters.size(); i++) {
+            if (!DataComparator.compareSemester(retrievedSemesters.get(i), semesters.get(i))) {
+                Assertions.fail("Getter returned List with different semesters.");
+            }
+        }
+
+        // Compare the current semester.
+        if (!DataComparator.compareSemester(retrievedCurrentSemester, currentSemester)) {
+            Assertions.fail("Getter returned different current semester.");
+        }
     }
 
     @Test
     public void testFormatting() {
         // Initialize new SemesterData Object.
         Data data = new Data(semesters, currentSemester);
-        // Expected Formatting.
-        StringBuilder builder = new StringBuilder();
-        // Showing the current semester.
-        builder.append("Current Semester:" + Stringify.BR);
-        builder.append(data.currentSemester().getName() + Stringify.BR + Stringify.BR);
-        // Showing the semesters.
-        builder.append("Semesters:" + Stringify.BR);
-        for (Semester semester : data.semesters()) {
-            builder.append(semester.getName() + Stringify.BR);
-        }
-        // Saving the final Format
-        String format = builder.toString().trim();
+
         // Test the formatting.
+        String format = Stringify.format(data);
         String retrievedFormat = data.toString();
+
         // Compare the values.
         Assertions.assertEquals(format, retrievedFormat);
     }

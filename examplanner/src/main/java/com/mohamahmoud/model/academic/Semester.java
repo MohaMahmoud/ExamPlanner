@@ -1,5 +1,7 @@
 package com.mohamahmoud.model.academic;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mohamahmoud.util.Stringify;
 
 import java.util.Collections;
@@ -14,15 +16,16 @@ import java.util.Comparator;
  * @version 1.1
  */
 public class Semester {
-    private final String name;
-    private final List<Entry> entries;
+    private String name;
+    private List<Entry> entries;
 
     /**
      * Constructs a new {@link Semester} with the specified name.
      * 
      * @param name The specified name
      */
-    public Semester(String name) {
+    @JsonCreator
+    public Semester(@JsonProperty("name") String name) {
         this.name = name;
         this.entries = new ArrayList<>();
     }
@@ -37,12 +40,30 @@ public class Semester {
     }
 
     /**
+     * Sets the name of the {@link Semester} to the specified name.
+     * 
+     * @param name The specified name
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
      * Gets the entries of the {@link Semester}.
      * 
      * @return The entries of the {@link Semester}
      */
     public List<Entry> getEntries() {
         return Collections.unmodifiableList(entries);
+    }
+
+    /**
+     * Sets the entries of the {@link Semester} to the specified entries.
+     * 
+     * @param entries The specified entries
+     */
+    public void setEntries(List<Entry> entries) {
+        this.entries = entries;
     }
 
     /**
