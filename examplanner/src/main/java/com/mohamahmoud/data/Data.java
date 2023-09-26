@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-import com.mohamahmoud.model.Semester;
+import com.mohamahmoud.model.academic.Semester;
 import com.mohamahmoud.util.Stringify;
 
 /**
@@ -13,13 +13,24 @@ import com.mohamahmoud.util.Stringify;
  * @author Mohammad Mahmoud
  * @version 1.0
  */
-public record Data(List<Semester> semesters, Semester currentSemester) {
+public class Data {
+    private final List<Semester> semesters;
+    private final Semester currentSemester;
 
-    @Override
-    public List<Semester> semesters() {
+    public Data(List<Semester> semesters, Semester currentSemester) {
+        this.semesters = semesters;
+        this.currentSemester = currentSemester;
+    }
+
+    public List<Semester> getSemesters() {
         return Collections.unmodifiableList(semesters);
     }
 
+    public Semester getCurrentSemester() {
+        return currentSemester;
+    }
+
+    // TODO
     @Override
     public boolean equals(Object obj) {
         // Default return values if it is the same object.

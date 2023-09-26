@@ -8,10 +8,10 @@ import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 
-import com.mohamahmoud.model.Entry;
-import com.mohamahmoud.model.Score;
-import com.mohamahmoud.model.Semester;
-import com.mohamahmoud.model.State;
+import com.mohamahmoud.model.academic.Entry;
+import com.mohamahmoud.model.academic.Semester;
+import com.mohamahmoud.model.grading.Score;
+import com.mohamahmoud.model.grading.State;
 import com.mohamahmoud.util.Stringify;
 
 /**
@@ -65,10 +65,9 @@ public class DataTest {
         Assertions.assertEquals(data.hashCode(), copy.hashCode());
         // Modify one of the semesters in the copy.
         copy.semesters().get(0).addEntry(new Entry(LocalDate.now(), "Modified", 0, State.UNKNOWN, 1.0f, new Score(100f, 100f)));
-        int i = 0;
         // Test inequality after modifying the copy.
-        //Assertions.assertFalse(data.equals(copy));
-        //Assertions.assertFalse(copy.equals(data));
+        Assertions.assertFalse(data.equals(copy));
+        Assertions.assertFalse(copy.equals(data));
     }
 
     @Test

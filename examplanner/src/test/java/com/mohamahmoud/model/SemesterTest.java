@@ -6,6 +6,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import com.mohamahmoud.model.academic.Entry;
+import com.mohamahmoud.model.academic.Semester;
+import com.mohamahmoud.model.grading.Score;
+import com.mohamahmoud.model.grading.State;
+
 public class SemesterTest {
     
     private Semester semester1;

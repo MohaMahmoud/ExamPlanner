@@ -1,12 +1,15 @@
 package com.mohamahmoud.model;
 
 import org.junit.jupiter.api.Test;
+
+import com.mohamahmoud.model.grading.Score;
+
 import org.junit.jupiter.api.Assertions;
 
 /**
  * This class tests the {@link Score} class.
  * 
- * @author Mohammad Mahmoud
+ * @author Mohammad Mahmoud,
  * @version 1.0
  */
 public class ScoreTest {

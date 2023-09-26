@@ -1,10 +1,10 @@
 package com.mohamahmoud.util;
 
 import com.mohamahmoud.data.Data;
-import com.mohamahmoud.model.Entry;
-import com.mohamahmoud.model.Semester;
+import com.mohamahmoud.model.academic.Entry;
+import com.mohamahmoud.model.academic.Semester;
 
-public class Stringify {
+public final class Stringify {
     public static final String BR = System.lineSeparator();
     private static final String SEPARATOR = " ";
 
@@ -14,15 +14,15 @@ public class Stringify {
      * @param semesterData The {@link Data} to be formatted
      * @return The formatted {@link Data}
      */
-    public static String format(Data semesterData) {
+    public static String format(Data data) {
         // Initialize the StringBuilder.
         StringBuilder builder = new StringBuilder();
         // Show the current semester.
         builder.append("Current Semester:" + BR);
-        builder.append(semesterData.currentSemester().getName() + BR + BR);
+        builder.append(data.currentSemester().getName() + BR + BR);
         // Show the semesters.
         builder.append("Semesters:" + BR);
-        for (Semester semester : semesterData.semesters()) {
+        for (Semester semester : data.semesters()) {
             builder.append(semester.getName() + BR);
         }
         // Return the formatted String.
@@ -60,7 +60,8 @@ public class Stringify {
         // Initialize the StringBuilder.
         StringBuilder builder = new StringBuilder();
         String format = "Date: %s, Name: %s, ECTS: %d, State: %s, Grade: %s, Score: %s"; // TODO Test that formatting.
-        builder.append(String.format(format, entry.date(), entry.name(), entry.ects(), entry.state(), entry.grade(), entry.score()));
+        builder.append(String.format(format, entry.date(), entry.name(), entry.ects(), entry.state(), entry.grade(),
+                entry.score()));
         return builder.toString();
     }
 }

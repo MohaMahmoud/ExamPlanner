@@ -1,6 +1,9 @@
 package com.mohamahmoud.data;
 
 import org.junit.jupiter.api.Test;
+
+import com.mohamahmoud.model.academic.Semester;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 
@@ -8,8 +11,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
-
-import com.mohamahmoud.model.Semester;
 
 /**
  * This class tests the {@link DataStorage} class.
