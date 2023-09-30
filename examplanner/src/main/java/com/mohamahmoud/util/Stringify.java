@@ -1,7 +1,7 @@
 package com.mohamahmoud.util;
 
 import com.mohamahmoud.data.Data;
-import com.mohamahmoud.model.academic.Entry;
+import com.mohamahmoud.model.academic.Exam;
 import com.mohamahmoud.model.academic.Semester;
 
 public final class Stringify {
@@ -42,29 +42,31 @@ public final class Stringify {
         builder.append(semester.getName() + BR + BR);
         // Show the entries.
         builder.append("Entries: " + BR);
-        for (Entry entry : semester.getEntries()) {
-            builder.append(entry.toString() + BR);
+        for (Exam exam: semester.getExams()) {
+            builder.append(exam.toString() + BR);
         }
         // Return the formatted String.
         return builder.toString();
     }
 
     /**
-     * Formats the {@link Entry} into readable and structured text.
+     * Formats the {@link Exam} into readable and structured text.
      * 
-     * @param semester The {@link Entry} to be formatted
-     * @return The formatted {@link Entry}
+     * @param semester The {@link Exam} to be formatted
+     * @return The formatted {@link Exam}
      */
-    public static String format(Entry entry) {
+    public static String format(Exam exam) {
 
         StringBuilder builder = new StringBuilder();
         String format = "Date: %s, Name: %s, ECTS: %d, Result: %s";
         builder.append(String.format(
                 format,
-                entry.getDate(),
-                entry.getName(),
-                entry.getEcts(),
-                entry.getResult()));
+                exam.date(),
+                exam.name(),
+                exam.ects(),
+                exam.state(),
+                exam.grade(),
+                exam.score()));
         return builder.toString();
     }
 }

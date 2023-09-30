@@ -22,14 +22,22 @@ public class Main extends Application {
      * @param args The command line arguments (not used in this program)
      */
     public static void main( String[] args ) {
-        System.out.println( "Hello World!" );
+        launch(args);
     }
 
     @Override
     public void start(Stage stage) throws Exception {
+        // Get resource files.
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/fxml/sample.fxml")));
+        String css = Objects.requireNonNull(getClass().getResource("/css/style.css")).toExternalForm();
+
+        // Set up scene.
+        Scene scene = new Scene(root, 1200, 800); // TODO Width is okay but maybe change height.
+        scene.getStylesheets().add(css);
+
+        // Set up stage.
         stage.setTitle("KIT Prüfungsplaner");
-        stage.setScene(new Scene(root, 900, 600));
+        stage.setScene(scene);
         stage.show();
     }
 }

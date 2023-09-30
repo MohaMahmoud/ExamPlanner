@@ -3,7 +3,6 @@ package com.mohamahmoud.data;
 import org.junit.jupiter.api.Test;
 
 import com.mohamahmoud.model.academic.Semester;
-import com.mohamahmoud.util.DataComparator;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -44,7 +43,7 @@ public class DataStorageTest {
         try {
             Data retrievedData = storage.readData();
             // Assert that the retrieved data matches the original data.
-            Assertions.assertTrue(DataComparator.compareData(data, retrievedData));
+            Assertions.assertEquals(data, retrievedData);
         } catch (IOException exception) {
             Assertions.fail("Exception thrown while reading the data: " + exception.getMessage());
         }

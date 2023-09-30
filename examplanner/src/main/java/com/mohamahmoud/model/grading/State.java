@@ -1,7 +1,7 @@
 package com.mohamahmoud.model.grading;
 
 /**
- * This enum represents the different states an {@link Entry} can be in.
+ * This enum represents the different states an {@link Exam} can be in.
  * 
  * @author Mohammad Mahmoud
  * @version 1.0

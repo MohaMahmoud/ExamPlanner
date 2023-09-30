@@ -13,11 +13,11 @@ import java.util.Comparator;
  * This class represents a {@link Semester} in the Exam Planner.
  * 
  * @author Mohammad Mahmoud
- * @version 1.1
+ * @version 1.2
  */
 public class Semester {
-    private String name;
-    private List<Entry> entries;
+    private final String name;
+    private List<Exam> exams;
 
     /**
      * Constructs a new {@link Semester} with the specified name.
@@ -27,7 +27,7 @@ public class Semester {
     @JsonCreator
     public Semester(@JsonProperty("name") String name) {
         this.name = name;
-        this.entries = new ArrayList<>();
+        this.exams = new ArrayList<>();
     }
 
     /**
@@ -40,21 +40,12 @@ public class Semester {
     }
 
     /**
-     * Sets the name of the {@link Semester} to the specified name.
-     * 
-     * @param name The specified name
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
      * Gets the entries of the {@link Semester}.
      * 
      * @return The entries of the {@link Semester}
      */
-    public List<Entry> getEntries() {
-        return Collections.unmodifiableList(entries);
+    public List<Exam> getExams() {
+        return Collections.unmodifiableList(exams);
     }
 
     /**
@@ -62,27 +53,38 @@ public class Semester {
      * 
      * @param entries The specified entries
      */
-    public void setEntries(List<Entry> entries) {
-        this.entries = entries;
+    public void setExams(List<Exam> entries) {
+        this.exams = entries;
     }
 
     /**
-     * Adds an {@link Entry} to the List of entries.
+     * Adds an {@link Exam} to the List of entries.
      * 
-     * @param entry The {@link Entry} to be added.
+     * @param entry The {@link Exam} to be added.
      */
-    public void addEntry(Entry entry) {
-        entries.add(entry);
-        Collections.sort(entries, Comparator.comparing(Entry::getDate));
+    public void addEntry(Exam entry) {
+        exams.add(entry);
+        Collections.sort(exams, Comparator.comparing(Exam::date));
     }
 
     /**
-     * Removes an {@link Entry} from the List of entries.
+     * Removes an {@link Exam} from the List of entries.
      * 
-     * @param entry The {@link Entry} to be removed.
+     * @param entry The {@link Exam} to be removed.
      */
-    public void removeEntry(Entry entry) {
-        entries.remove(entry);
+    public void removeEntry(Exam entry) {
+        exams.remove(entry);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        // Check if the two objects are from the same class.
+        if (obj == null || (this.getClass() != obj.getClass()))
+            return false;
+
+        // Check equality.
+        Semester other = (Semester) obj;
+        return exams.equals(other.getExams()) && name.equals(other.getName());
     }
 
     @Override

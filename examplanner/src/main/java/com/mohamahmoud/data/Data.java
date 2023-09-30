@@ -34,6 +34,17 @@ public class Data {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        // Check if the two objects are from the same class.
+        if (obj == null || (this.getClass() != obj.getClass()))
+            return false;
+
+        // Check equality.
+        Data other = (Data) obj;
+        return currentSemester.equals(other.getCurrentSemester()) && semesters.equals(other.getSemesters());
+    }
+
+    @Override
     public String toString() {
         return Stringify.format(this);
     }
